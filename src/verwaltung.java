@@ -15,9 +15,15 @@ public class verwaltung {
         while (true) {
             System.out.println("== HAUPTMENÜ ==");
             System.out.println("[1]TicTacTo");
+            System.out.println("[2]Wortkette");
             int verschluesselungprinzip = scanner.nextInt();
             if(verschluesselungprinzip==1) {
-                break;
+                TicTacTo tictacto=new TicTacTo();
+                tictacto.play();
+            }else if (verschluesselungprinzip==2){
+                Wortkette wortkette=new Wortkette();
+                wortkette.play();
+
             }
 
         }
