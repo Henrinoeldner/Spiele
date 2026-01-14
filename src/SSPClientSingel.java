@@ -1,19 +1,19 @@
 import jutils.Client;
 
 /**
- * Protokol
+ * Protokoll
  * SCHERE
  * STEIN
- * PAPIR
+ * PAPIER
  */
-public class SSPClient extends Client {
-    public SSPClient(String pServerIP, int pServerPort) {
+public class SSPClientSingel extends Client {
+    public SSPClientSingel(String pServerIP, int pServerPort) {
         super(pServerIP, pServerPort);
     }
 
     @Override
     public void processMessage(String pMessage) {
-
+        System.out.println(pMessage);
     }
     public void schere(){
         send("SCHERE");
@@ -22,6 +22,6 @@ public class SSPClient extends Client {
         send("STEIN");
     }
     public void papir(){
-        send("PAPIR");
+        send("PAPIER");
     }
 }
