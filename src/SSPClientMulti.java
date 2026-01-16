@@ -27,4 +27,7 @@ public class SSPClientMulti extends Client {
     public void papir(){
         send("PAPIER");
     }
+    public void verbinden(String pName){
+        send("VERBINDEN:" + pName);
+    }
 }

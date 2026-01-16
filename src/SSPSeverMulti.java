@@ -1,4 +1,5 @@
 import jutils.List;
+import jutils.Queue;
 import jutils.Server;
 
 /**
@@ -9,7 +10,7 @@ import jutils.Server;
  * PAPIER:<name>:<gegenspieler>
  */
 public class SSPSeverMulti extends Server {
-
+    private Queue<Spieler> wartenaufVerbindung = new Queue<>();
     private List<Spieler> spielerList = new List<>();
     private List<Spielzug> spielzugList= new List<>();
     public SSPSeverMulti(int pPort) {
@@ -26,7 +27,18 @@ public class SSPSeverMulti extends Server {
         String[] nachrichtTeil =pMessage.split(":");
         switch (nachrichtTeil[0]){
             case "VERBINDEN" ->{
-                spielerList.append(new Spieler(nachrichtTeil[2],pClientIP,pClientPort));
+                if (wartenaufVerbindung.isEmpty()){
+                    wartenaufVerbindung.enqueue(new Spieler(nachrichtTeil[1],pClientIP,pClientPort));
+                } else{
+
+                }
+                Spieler spieler1 = new Spieler(nachrichtTeil[1],pClientIP,pClientPort);
+                Spieler spieler2 = wartenaufVerbindung.front();
+                wartenaufVerbindung.dequeue();
+                spielerList.append(spieler1);
+                spielerList.append(spieler2);
+                send(pClientIP,pClientPort,"VERBUNDEN:"+spieler2.getName());
+                send(spieler2.getIp(),spieler2.getPort(),"VERBUNDEN:"+spieler1.getName());
             }
         }
 

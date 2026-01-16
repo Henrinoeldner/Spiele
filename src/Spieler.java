@@ -1,6 +1,5 @@
 public class Spieler {
     private String name;
-    private boolean istverbunden;
     private String ip;
     private int port;
 
@@ -12,7 +11,6 @@ public class Spieler {
      */
     public Spieler(String name, String ip, int port) {
         this.name = name;
-        this.istverbunden = false;
         this.ip = ip;
         this.port = port;
     }
@@ -23,14 +21,6 @@ public class Spieler {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isIstverbunden() {
-        return istverbunden;
-    }
-
-    public void setIstverbunden(boolean istverbunden) {
-        this.istverbunden = istverbunden;
     }
 
     public String getIp() {
