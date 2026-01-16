@@ -5,9 +5,8 @@ import jutils.Server;
 /**
  * Protokoll
  * VERBINDEN:<name>   -> VERBUNDEN: <gegenspieler>
- * SCHERE:<name>:<gegenspieler>
- * STEIN:<name>:<gegenspieler>
- * PAPIER:<name>:<gegenspieler>
+ * SPIEL:<spielzug>:<name>:<gegenspieler>
+ *<spielzug>=STEIN/SCHERE/PAPIER
  */
 public class SSPSeverMulti extends Server {
     private Queue<Spieler> wartenaufVerbindung = new Queue<>();
@@ -39,6 +38,49 @@ public class SSPSeverMulti extends Server {
                     send(spieler2.getIp(),spieler2.getPort(),"VERBUNDEN:"+spieler1.getName());
                 }
 
+            }
+            case "SPIEL"->{
+                boolean vorhandenerspielzug=false;
+                spielzugList.toFirst();
+                Spielzug spielzug=null;
+                while (spielzugList.hasAccess()){
+                    if (spielzugList.getContent().getGegen().getName().equals(nachrichtTeil[2])){
+                        spielzug=spielzugList.getContent();
+                        vorhandenerspielzug=true;
+                    }
+                    spielzugList.next();
+                }
+                String naricht1 = "Du hast "+nachrichtTeil[1]+" gespielt. Dein gegner hat "+spielzug.getSSP()+" gespielt.";
+                String naricht2 = "Du hast "+spielzug.getSSP()+" gespielt. Dein gegner hat "+nachrichtTeil[1]+" gespielt.";
+                if (vorhandenerspielzug){
+                    int sieger = siegerberechen(nachrichtTeil[1],spielzug.getSSP());
+                        switch (sieger){
+                            case 1 ->{
+                                send(pClientIP,pClientPort,naricht1+ "\n Du hast gewonnen. ");
+                                send(spielzug.getGegen().getIp(),spielzug.getGegen().getPort(),naricht2+ "\n Du hast verloren. " );
+                            }
+                            case 2->{
+                                send(pClientIP,pClientPort,naricht1+ "\n Du hast verloren. ");
+                                send(spielzug.getGegen().getIp(),spielzug.getGegen().getPort(),naricht2+ "\n Du hast gewonnen. " );
+                            }
+                            case 0-> {
+                                send(pClientIP,pClientPort,naricht1+ "\n Es ist ein Unentschieden. ");
+                                send(spielzug.getGegen().getIp(),spielzug.getGegen().getPort(),naricht2+ "\n Es ist ein Unentschieden. " );
+
+                            }
+                        }
+
+                }else{
+                    Spieler gegner=null;
+                    spielerList.toFirst();
+                    while (spielerList.hasAccess()){
+                        if (spielerList.getContent().getName().equals(nachrichtTeil[3])){
+                            gegner=spielerList.getContent();
+                        }
+                        spielerList.next();
+                    }
+                    spielzugList.append(new Spielzug(gegner,nachrichtTeil[1]));
+                }
             }
         }
 

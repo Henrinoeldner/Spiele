@@ -6,4 +6,12 @@ public class Spielzug {
         this.gegen = gegen;
         this.SSP = SSP;
     }
+
+    public Spieler getGegen() {
+        return gegen;
+    }
+
+    public String getSSP() {
+        return SSP;
+    }
 }
