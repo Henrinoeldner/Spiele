@@ -34,17 +34,22 @@ public class verwaltung {
             }else if (verschluesselungprinzip==3){
                 boolean stop =false;
                 System.out.println("\n == Schere Stein Papier==\n Wilkommen bei Schere Stein Papier. Die Regeln sind simpel." +
-                        " Schere schlägt Papier. Papier schlägt Stein. Stein schlägt Schere");
-                SSPSeverSingel sever = new SSPSeverSingel(12);
-                SSPClientSingel client = new SSPClientSingel("localhost", 12);
+                        " Schere schlägt Papier. Papier schlägt Stein. Stein schlägt Schere\n\n Möchtest du alleine Spielen oder gegen andere?\n [1] Alleine \n [2] Mit Anderen");
+
+
+
+
+
+                SSPSeverSingel severSingel = new SSPSeverSingel(12);
+                SSPClientSingel clientSingel = new SSPClientSingel("localhost", 12);
                 while (!stop) {
 
                     System.out.println("Was möchtest du spielen ?\n [1] Stein \n [2] Schere \n [3] Papier \n [4] Zurück");
                     int option = scanner.nextInt();
                     switch (option){
-                        case 1 -> client.stein();
-                        case 2 -> client.schere();
-                        case 3 -> client.papir();
+                        case 1 -> clientSingel.stein();
+                        case 2 -> clientSingel.schere();
+                        case 3 -> clientSingel.papir();
                         case 4 -> {
                             stop=true;
                         }

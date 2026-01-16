@@ -30,15 +30,15 @@ public class SSPSeverMulti extends Server {
                 if (wartenaufVerbindung.isEmpty()){
                     wartenaufVerbindung.enqueue(new Spieler(nachrichtTeil[1],pClientIP,pClientPort));
                 } else{
-
+                    Spieler spieler1 = new Spieler(nachrichtTeil[1],pClientIP,pClientPort);
+                    Spieler spieler2 = wartenaufVerbindung.front();
+                    wartenaufVerbindung.dequeue();
+                    spielerList.append(spieler1);
+                    spielerList.append(spieler2);
+                    send(pClientIP,pClientPort,"VERBUNDEN:"+spieler2.getName());
+                    send(spieler2.getIp(),spieler2.getPort(),"VERBUNDEN:"+spieler1.getName());
                 }
-                Spieler spieler1 = new Spieler(nachrichtTeil[1],pClientIP,pClientPort);
-                Spieler spieler2 = wartenaufVerbindung.front();
-                wartenaufVerbindung.dequeue();
-                spielerList.append(spieler1);
-                spielerList.append(spieler2);
-                send(pClientIP,pClientPort,"VERBUNDEN:"+spieler2.getName());
-                send(spieler2.getIp(),spieler2.getPort(),"VERBUNDEN:"+spieler1.getName());
+
             }
         }
 
