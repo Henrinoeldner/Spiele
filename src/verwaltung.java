@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class verwaltung {
     private Scanner scanner;
 
+
+
     public static void main(String[] args) throws InterruptedException {
 
         new verwaltung();
@@ -11,6 +13,10 @@ public class verwaltung {
 
     }
     public verwaltung() throws InterruptedException {
+        SSPSeverMulti sever = new SSPSeverMulti(12);
+        SSPClientMulti client = new SSPClientMulti("localhost", 12);
+        client.verbinden("HENRI");
+
         scanner = new Scanner(System.in);
         while (true) {
 
@@ -29,9 +35,10 @@ public class verwaltung {
                 boolean stop =false;
                 System.out.println("\n == Schere Stein Papier==\n Wilkommen bei Schere Stein Papier. Die Regeln sind simpel." +
                         " Schere schlägt Papier. Papier schlägt Stein. Stein schlägt Schere");
+                SSPSeverSingel sever = new SSPSeverSingel(12);
+                SSPClientSingel client = new SSPClientSingel("localhost", 12);
                 while (!stop) {
-                    SSPSeverSingel sever = new SSPSeverSingel(12);
-                    SSPClientSingel client = new SSPClientSingel("localhost", 12);
+
                     System.out.println("Was möchtest du spielen ?\n [1] Stein \n [2] Schere \n [3] Papier \n [4] Zurück");
                     int option = scanner.nextInt();
                     switch (option){
