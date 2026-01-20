@@ -67,12 +67,13 @@ public class verwaltung {
                             Thread.sleep(2);
                         }
                         while (!stop){
-                            System.out.println("Was möchtest du spielen?\n[1] Stein\n[2]Schere\n[3]Papier");
+                            System.out.println("Was möchtest du spielen?\n[1] Stein\n[2]Schere\n[3]Papier\n[4]Rage quit");
                             option=scanner.nextInt();
                             switch (option){
                                 case 1 -> client.papir();
                                 case 2 -> client.schere();
                                 case 3 -> client.stein();
+                                case 4 -> client.abmelden();
                             }
                             while (!client.isVerabeitet()){
                                 Thread.sleep(20);

@@ -12,6 +12,7 @@ public class SSPSeverMulti extends Server {
     private Queue<Spieler> wartenaufVerbindung = new Queue<>();
     private List<Spieler> spielerList = new List<>();
     private List<Spielzug> spielzugList= new List<>();
+    private List<match> matchList=new List<>();
     public SSPSeverMulti(int pPort) {
         super(pPort);
     }
@@ -36,6 +37,8 @@ public class SSPSeverMulti extends Server {
                     spielerList.append(spieler2);
                     send(pClientIP,pClientPort,"VERBUNDEN:"+spieler2.getName());
                     send(spieler2.getIp(),spieler2.getPort(),"VERBUNDEN:"+spieler1.getName());
+                    matchList.append(new match(spieler1,spieler2));
+
                 }
 
             }
@@ -149,6 +152,11 @@ public class SSPSeverMulti extends Server {
     }
     @Override
     public void processClosingConnection(String pClientIP, int pClientPort) {
-
+        spielerList.toFirst();
+        while (spielerList.hasAccess()){
+            if(spielerList.getContent().getIp().equals(pClientIP)){
+                send(spielerList.getContent().getIp(),spielerList.getContent().getPort(),"Dein Gegenspieler war dir so unterlegen, das er keine Ander möglichkeit als aufgeben gesehen hat.");
+            }
+        }
     }
 }

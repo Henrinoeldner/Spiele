@@ -54,4 +54,8 @@ public class SSPClientMulti extends Client {
     public boolean isVerbunden() {
         return verbunden;
     }
+
+    public void abmelden(){
+        this.close();
+    }
 }
