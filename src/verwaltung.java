@@ -14,7 +14,7 @@ public class verwaltung {
     }
     public verwaltung() throws InterruptedException {
 
-
+        SSPSeverMulti sever = new SSPSeverMulti(12);
         scanner = new Scanner(System.in);
         while (true) {
 
@@ -59,11 +59,17 @@ public class verwaltung {
                     case 2 ->{
                         System.out.println("Wie möchtest du dich nennen? Bitte gib deinen Namen an:");
                         String name = scanner.next();
-                        SSPSeverMulti sever = new SSPSeverMulti(12);
                         SSPClientMulti client = new SSPClientMulti("localhost", 12,name);
                         client.verbinden();
                         System.out.println("Warte auf Verbindung");
                         while (!client.isVerbunden()){
+                            System.out.println("Was möchtest du spielen?\n[1] Stein\n[2]Schere\n[3]Papier");
+                            option=scanner.nextInt();
+                            switch (option){
+                                case 1 -> client.papir();
+                                case 2 -> client.schere();
+                                case 3 -> client.stein();
+                            }
                             Thread.sleep(2);
                         }
 
