@@ -74,6 +74,9 @@ public class verwaltung {
                                 case 2 -> client.schere();
                                 case 3 -> client.stein();
                             }
+                            while (!client.isVerabeitet()){
+                                Thread.sleep(20);
+                            }
                         }
                     }
 
