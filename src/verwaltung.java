@@ -63,6 +63,10 @@ public class verwaltung {
                         client.verbinden();
                         System.out.println("Warte auf Verbindung");
                         while (!client.isVerbunden()){
+
+                            Thread.sleep(2);
+                        }
+                        while (!stop){
                             System.out.println("Was möchtest du spielen?\n[1] Stein\n[2]Schere\n[3]Papier");
                             option=scanner.nextInt();
                             switch (option){
@@ -70,9 +74,7 @@ public class verwaltung {
                                 case 2 -> client.schere();
                                 case 3 -> client.stein();
                             }
-                            Thread.sleep(2);
                         }
-
                     }
 
 

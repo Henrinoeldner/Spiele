@@ -28,7 +28,6 @@ public class SSPClientMulti extends Client {
             default -> {System.out.println(pMessage);}
 
         }
-        System.out.println(pMessage);
     }
     public void schere(){
         send("SPIEL:SCHERE:"+Name+":"+ gegespieler);
